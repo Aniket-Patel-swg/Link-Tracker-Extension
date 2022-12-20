@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,500&display=swap');
+*{
+    margin: 0;
+    /* padding: 10px; */
+    font-family: 'Raleway','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body{
+    padding: 10px;
+    min-width: 400px;
+}
+input{
+    
+    width: 100%;
+    padding: 1em;
+    box-sizing: border-box;
+    font-size: 1.1rem;
+    font-weight: 200;
+}
+button {
+    padding: 0.8rem;
+    margin-top: 1em;
+    background-color: rgb(166, 187, 255);
+    border-color: rgb(183, 183, 255);
+    border-radius: 0.2rem;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+}
+#delete-btn{
+    border: 1px solid rgb(166, 187, 255);
+    background-color: white;
+    color: rgb(166, 187, 255);
+    margin-left: 15px;
+}
+.box{
+    padding: 1em;
+    margin: auto;
+    background-color: aqua;
+    max-width: 350px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.8em;
+}
+
+#ul-text{
+    padding-top: 2em;
+    font-size: 1.8em;
+    font-weight: 200;
+}
+#ul-el{
+    list-style-type: square;
+    padding-top: 1em;
+}
+#ul-el li{
+    margin-top: 10px;
+}
+#ul-el li a{
+    font-size: 1.2em;
+    color: rgb(166, 187, 255);
+}
