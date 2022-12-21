@@ -27,10 +27,10 @@ button {
     font-size: 1rem;
 }
 #delete-btn{
-    border: 1px solid rgb(166, 187, 255);
+    border: 1.5px solid rgb(166, 187, 255);
     background-color: white;
     color: rgb(166, 187, 255);
-    margin-left: 15px;
+    margin-left: 3px;
 }
 .box{
     padding: 1em;

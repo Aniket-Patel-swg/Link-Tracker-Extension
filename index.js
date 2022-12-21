@@ -1,9 +1,10 @@
 const inputBtn = document.getElementById('input-btn');
 let myLeads = []
+let oldLeads =[]
 const inputEl = document.getElementById('input-el');
 const ulEl = document.getElementById('ul-el');
 const deleteBtn = document.getElementById("delete-btn");
-
+const tabBtn = document.getElementById('save-tab');
 // Difference between const and let is, const can't be reassigned
 // If possible use const, if not use let.
 
@@ -13,18 +14,77 @@ console.log(leadsFromLocalStorage);
 if(leadsFromLocalStorage){
     // myLeads = JSON.parse(localStorage.getItem("myLeads"))
     myLeads = leadsFromLocalStorage 
-
-    renderleads();
+    console.log("True");
+    render(myLeads);
 }
 
-window.addEventListener("dblclick", function(){
+// const tabs = [
+//     {url:"https://github.com/Aniket-Patel-swg"}
+// ]
+
+tabBtn.addEventListener('click',function(){
+    // Grab the URL of the current tab!
+    // chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+    //     console.log(tabs[0].url);
+
+    //     let activeTab = taba[0]
+    //     let activeTabId = activeTab.id 
+    // })
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+        // this function will be triggered when above both conditions are true
+        console.log(tabs[0].url)
+        myLeads.push(tabs[0].url)
+        localStorage.setItem("myLeads",JSON.stringify(myLeads))
+        render(myLeads)
+
+    })
+    // console.log(tabs[0])    
+    // When we write tabs[0] we get object with key url and value: link
+    // so when we write tabs[0].url we can get url
+})
+
+function render(leads){
+    let listItems = "";
+    for(let i = 0; i < leads.length; i++){
+        // ulEl.textContent += "<li>"+ myLeads[i] + "</li>"
+        // this will simply print out string
+    
+        // but if we use innerHTML
+        // ulEl.innerHTML += "<li>" + myLeads[i] + "</li>"
+        // What we did here was
+        // (1) created element 
+        // (2) set text content
+        // (3) append to ul 
+    
+        // so we can use alternate method
+        // const li = document.createElement("li")
+        // li.textContent = myLeads[i]
+        // ulEl.append(li);
+    
+        // This above 2 ways are not performance friendly, as we've to DOM manipulation on every single iteration
+        // Remeber DOM manipulation comes with the cost, and it'll be more costly to do at every iteration
+        // listItems += "<li><a target='_blank' href='"+ myLeads[i] +"'>" + myLeads[i] + "</a></li>"
+        // Template strings, to hide above complexity
+        listItems += `
+            <li>
+                <a target="_blank" href="${leads[i]} ">
+                    ${leads[i]}
+                </a>
+            </li>   
+        `
+        // we use $ sign, to write javascript in string.
+        console.log(listItems)
+    }
+    ulEl.innerHTML =  listItems
+    }
+deleteBtn.addEventListener("dblclick", function(){
     // clearing local storage
-    this.localStorage.clear()
+    localStorage.clear()
     // clearing out myLeads array
     myLeads =[]
     console.log(myLeads)
     // clearing out DOM object, in other words clearing our list items
-    renderleads()
+    render(myLeads)
 })
 
 // let myLeads = `["https://github.com/Aniket-Patel-swg"]`
@@ -53,43 +113,9 @@ inputBtn.addEventListener("click", function(){
     localStorage.setItem("myLeads",JSON.stringify(myLeads))
 
     // to clear space after user has clicked button
-    renderleads();
+    render(myLeads);
 })
 
-function renderleads(){
-let listItems = "";
-for(let i = 0; i < myLeads.length; i++){
-    // ulEl.textContent += "<li>"+ myLeads[i] + "</li>"
-    // this will simply print out string
-
-    // but if we use innerHTML
-    // ulEl.innerHTML += "<li>" + myLeads[i] + "</li>"
-    // What we did here was
-    // (1) created element 
-    // (2) set text content
-    // (3) append to ul 
-
-    // so we can use alternate method
-    // const li = document.createElement("li")
-    // li.textContent = myLeads[i]
-    // ulEl.append(li);
-
-    // This above 2 ways are not performance friendly, as we've to DOM manipulation on every single iteration
-    // Remeber DOM manipulation comes with the cost, and it'll be more costly to do at every iteration
-    // listItems += "<li><a target='_blank' href='"+ myLeads[i] +"'>" + myLeads[i] + "</a></li>"
-    // Template strings, to hide above complexity
-    listItems += `
-        <li>
-            <a target="_blank" href="${myLeads[i]} ">
-                ${myLeads[i]}
-            </a>
-        </li>   
-    `
-    // we use $ sign, to write javascript in string.
-    console.log(listItems)
-}
-ulEl.innerHTML =  listItems
-}
 // Below code will literally add button and css as well from javascript only, 
 // it's one of use case of innerHTML
 // also we can pass onClick event, and do some changes as well 
@@ -146,3 +172,13 @@ ulEl.innerHTML =  listItems
 // console.log(Boolean( null))
 // console.log(Boolean([0]))
 // console.log(Boolean(-0))
+
+
+
+// (4) functions with parameters
+
+                    // parameters
+// function getFirst(arr){
+//     return arr[2];
+// }                    arguments
+// console.log(getFirst([2,4,51,1]))
